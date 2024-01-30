@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GOOGLE_APPLICATION_CREDENTIALS = credentials('anilgcpcredentials')
+        GOOGLE_APPLICATION_CREDENTIALS = credentials('cred')
     }
 
     stages {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                    sh 'gcloud config set project excellent-guide-410011'
+                    sh 'gcloud config set project prasanna1-410609'
 
                     if (env.BRANCH_NAME == 'develop') {
                         dir("infra/StorageBucket") {
@@ -41,14 +41,14 @@ pipeline {
 
         stage('Production Infra : Creation') {
             when {
-                branch 'main'
+                branch 'master'
             }
             steps {
                 script {
                     sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                    sh 'gcloud config set project excellent-guide-410011'
+                    sh 'gcloud config set project prasanna1-410609'
 
-                    if (env.BRANCH_NAME == 'main') {
+                    if (env.BRANCH_NAME == 'master') {
                         dir("infra/StorageBucket") {
                             sh 'terraform --version'
                             sh 'terraform init -backend-config=./environment/prod/backend_config.tfvars'
