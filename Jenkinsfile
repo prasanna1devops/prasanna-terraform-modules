@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     sh 'gcloud auth activate-service-account --key-file=$GOOGLE_APPLICATION_CREDENTIALS'
-                    sh 'gcloud config set project prasanna1-410609'
+                    sh 'gcloud config set project prasanna1-410609'   #prasanna
 
                     if (env.BRANCH_NAME == 'master') {
                         dir("infra/StorageBucket") {
